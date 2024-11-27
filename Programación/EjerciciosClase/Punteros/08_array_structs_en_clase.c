@@ -35,7 +35,7 @@ return estudiante_nuevo;
 }*/
 
 
-void inicializar(Estudiante * estudiante_a_rellenar, char * nombre, int edad, float nota){
+void inicializar( Estudiante * estudiante_a_rellenar, char * nombre, int edad, float nota){
 
 	//Esto no compila: estudiante_a_rellenar.edad = edad; porque estudiante_a_rellenar
 	// es un puntero, no un estudiante. Habría que hacer (*estudiante_a_rellenar).edad, es decir,
@@ -55,6 +55,11 @@ void inicializar(Estudiante * estudiante_a_rellenar, char * nombre, int edad, fl
 void cumpleanios(Estudiante * cumpleanero) {
 	cumpleanero->edad++;
 
+}
+void Renombrar(Estudiante * nombrenuevo,char * nombre){
+	printf("Introduzca el nuevo nombre:\n");
+	scanf("%s",nombre);
+	strcpy(nombrenuevo->nombre,nombre);
 }
 
 
@@ -97,11 +102,14 @@ int main(){
 	//cumpleanios(listado);
 	printf("Edad nueva: %d\n",listado[0].edad );
 	// También es válido
-	printf("Edad nueva: %d\n",listado->edad );
-	printf("Edad nueva: %d\n",(*listado).edad );
+	//printf("Edad nueva: %d\n",listado->edad );
+	//printf("Edad nueva: %d\n",(*listado).edad );
+	 Renombrar(listado,nombre);
+	 printf("El nuevo nombre es:%s\n",listado[0].nombre);
 	
 
 	//printf("%d",(listado+6)->edad);
+
 
 	return EXIT_SUCCESS;
 }

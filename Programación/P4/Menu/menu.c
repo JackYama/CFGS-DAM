@@ -105,6 +105,9 @@ int main(){
 	printf("2.Calcular el área de una figura (círculo o cuadrado).\n");
 	printf("3.Calcular el promedio de 3 o 4 valores:\n");
 	printf("4.Convertir hora de 24 a 12:\n");
+	printf("5.verificar si un número menor de 10 es primo:\n")
+	printf("6.Comparar tres números.")
+	printf("7.Salir")
 	scanf("%d",&funciones);
 	switch(funciones){
 		case 1:
