@@ -19,15 +19,63 @@ typedef struct{
 	int cantidadDisponible;
 }Book;
 
+void imprimirlibro(Book *book){
+
+    printf("%d,%s,%s,%.2f,%d,%d\n",book->id,book->titulo,book->autor,book->precio,book->cantidadDisponible,book->genre);
+
+}
+
 void mostrar(Book *books){
 	for (int i = 0; i < 40; ++i){
-		printf("%d,%s,%s,%.2f,%d,%d\n",books[i].id,books[i].titulo,books[i].autor,books[i].precio,books[i].cantidadDisponible,books[i].genre );
+        imprimirlibro(&books[i]);
 	}
-void mostrarlibro(){
-	for (int i = 0; i < 40; ++i)
-	 if (books[i].id == id) 
-	 	printf("%d,%s,%s,%.2f,%d,%d\n",books[i].id,books[i].titulo,books[i].autor,books[i].precio,books[i].cantidadDisponible,books[i].genre );
-	}
+//void mostrarlibro(Book *books,int id, int cantidadDisponible){
+    //	for (int i = 0; i < 40; ++i)
+	 //if (books[i].id == id) 
+	 	//printf("%d,%s,%s,%.2f,%d,%d\n",books[i].id,books[i].titulo,books[i].autor,books[i].precio,books[i].cantidadDisponible,books[i].genre );
+	//}
+}
+void mostrarlibro(Book *books){
+    int id;
+    int cantidad;
+    printf("Ingrese el ID del libro que desea buscar: ");
+    scanf("%d", &id); // Leer ID desde el usuario
+    for (int i = 0; i < 40; ++i) {
+        if (books[i].id == id) {
+             imprimirlibro(&books[i]);
+            return;
+        }
+        else if (id< 1 || id > 40){
+         printf("Error: No se encontró ningún libro con ID %d\n", id);
+        } 
+        
+      
+    }
+    
+}
+void aumentarStock(Book *books) {
+    int id, cantidad;
+
+    // Solicitar al usuario el ID del libro
+    printf("Ingrese el ID del libro al que desea aumentar el stock: ");
+    scanf("%d", &id);
+
+    // Solicitar al usuario la cantidad a aumentar
+    printf("Ingrese la cantidad a aumentar: ");
+    scanf("%d", &cantidad);
+
+    // Buscar el libro por ID y aumentar el stock
+    for (int i = 0; i < 40; ++i) {
+        if (books[i].id == id) {
+            books[i].cantidadDisponible += cantidad;
+            printf("Stock actualizado:\n");
+            imprimirlibro(&books[i]);
+            return;
+        }
+    }
+
+    // Si no se encuentra el libro, mostrar un mensaje de error
+    printf("Error: No se encontró ningún libro con ID %d.\n", id);
 }
 
 int main(){
@@ -74,4 +122,6 @@ int main(){
         {40, "Thus Spoke Zarathustra", "Friedrich Nietzsche", 14.99, ESSAY, 10}
     }; 
     mostrar(books);
+    mostrarlibro(books);
+    aumentarStock(books); // Llamar a la función para que el cliente elija ID y cantidad
 }
