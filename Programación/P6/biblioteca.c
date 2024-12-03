@@ -77,7 +77,18 @@ void aumentarStock(Book *books) {
     // Si no se encuentra el libro, mostrar un mensaje de error
     printf("Error: No se encontró ningún libro con ID %d.\n", id);
 }
+    void mostrar_categoria(Book *books){
+        int categoria;
+        printf("mostrar categoria de todos los libros:");
+        scanf("%d",&categoria);
+        for (int i = 0; i < 40; ++i){
 
+
+        if (categoria == books[i].genre){
+            imprimirlibro(&books[i]);
+        }
+    }
+    }
 int main(){
      Book books[40] = {
         {1, "To Kill a Mockingbird", "Harper Lee", 15.99, FICTION, 10},
@@ -124,4 +135,5 @@ int main(){
     mostrar(books);
     mostrarlibro(books);
     aumentarStock(books); // Llamar a la función para que el cliente elija ID y cantidad
+    mostrar_categoria(books);
 }
