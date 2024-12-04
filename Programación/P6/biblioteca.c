@@ -1,7 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//escribimos las estructuras del enum y del struct  definiendo los diferentes generos literarios del libro y abajo la estructura del libro
+/*
+Author: Jacob Navarro LLamazares
+Work: Gestión biblioteca
+Language of the code: English
+*/
+
+//escribimos las estructuras del enum y del struct  definiendo los diferentes generos literarios que pueden comprender nuestros libros 
 typedef enum{
     FICTION,
     NON_FICTION,
@@ -9,86 +15,186 @@ typedef enum{
     THEATER,
     ESSAY
 }Literarygenre;
-
+//aqui lo que hacemos es definir la estructura por la que se compone cada libro
 typedef struct{
 	int id;
-	char titulo[80];
-	char autor[60];
-	float precio;
+	char title[80];
+	char author[60];
+	float price;
 	Literarygenre genre;
-	int cantidadDisponible;
+	int availablequantity;
 }Book;
 
-void imprimirlibro(Book *book){
 
-    printf("%d,%s,%s,%.2f,%d,%d\n",book->id,book->titulo,book->autor,book->precio,book->cantidadDisponible,book->genre);
+// esta función creada es la que utilizaremos como variable para imprimir los diferentes atributos definidos en nuestra estructura 
+void print_book(Book *book){
+
+    printf("%d,%s,%s,%.2f,%d,%d\n",book->id,book->title,book->author,book->price,book->availablequantity,book->genre);//aqui ponemos flecha ya que queremos acceder directamente  anuestra estructura y el dato y asi usar directamente el valor que tenemos en vez de coger una copia como pasaria al utilizar un .
 
 }
-
-void mostrar(Book *books){
-	for (int i = 0; i < 40; ++i){
-        imprimirlibro(&books[i]);
+//en la siguiente función lo unico que queremos es que recorra todo nuestro array desde el primero hasta el 40 , los escanee y los imprima por pantalla con todos los atributos definidos en la estructura del libro
+void show(Book *books){
+	for (int i = 0; i < 40; ++i){//aqui en este for lo que decimos es de que lugar a que lugar va y con el ++i lo que hacemos es que no se pare en el primero sino que siga avanzando escaneando hasta el 40 definido 
+        print_book(&books[i]);
 	}
+}//cabe destacar que en esta función y de aqui en adelante el genero se nos va a imprimir como un número o entero y no como un un char o palabra
+
 //void mostrarlibro(Book *books,int id, int cantidadDisponible){
     //	for (int i = 0; i < 40; ++i)
 	 //if (books[i].id == id) 
 	 	//printf("%d,%s,%s,%.2f,%d,%d\n",books[i].id,books[i].titulo,books[i].autor,books[i].precio,books[i].cantidadDisponible,books[i].genre );
 	//}
-}
-void mostrarlibro(Book *books){
+
+
+void show_book(Book *books){ //con esto lo que hacemos es apuntar a Book en cada función
     int id;
-    int cantidad;
-    printf("Ingrese el ID del libro que desea buscar: ");
+    int quantity; //declaramos enteros para nuestra función
+    printf("Enter the ID of the book u want to search of: ");
     scanf("%d", &id); // Leer ID desde el usuario
     for (int i = 0; i < 40; ++i) {
-        if (books[i].id == id) {
-             imprimirlibro(&books[i]);
+        if (books[i].id == id) {//aqui le decimos al programa que si cuando recorre el array encuentra que en el apartado id de cada libro uno coincide con el introducido por el cliente pare y imprima toda la estructura del libro coincidente
+             print_book(&books[i]);
             return;
         }
-        else if (id< 1 || id > 40){
-         printf("Error: No se encontró ningún libro con ID %d\n", id);
+        else if (id< 1 || id > 40){//aqui decimos que en la función las direcciones que nos interesan son del 1 al 40 y que todo lo que esta fuera de la primera posicion a la 40 da error y no nos da nada
+         printf("Error: Didn't find any Book with that ID%d\n", id);
         } 
         
       
     }
     
 }
-void aumentarStock(Book *books) {
-    int id, cantidad;
+void increaseStock(Book *books){
+    int id; 
+    int quantity;//declaramos enteros
 
     // Solicitar al usuario el ID del libro
-    printf("Ingrese el ID del libro al que desea aumentar el stock: ");
+    printf("Enter the id of the book u want to add more stock : ");
     scanf("%d", &id);
 
     // Solicitar al usuario la cantidad a aumentar
-    printf("Ingrese la cantidad a aumentar: ");
-    scanf("%d", &cantidad);
+    printf("Enter the amount u want do add: ");
+    scanf("%d", &quantity);
 
     // Buscar el libro por ID y aumentar el stock
     for (int i = 0; i < 40; ++i) {
-        if (books[i].id == id) {
-            books[i].cantidadDisponible += cantidad;
-            printf("Stock actualizado:\n");
-            imprimirlibro(&books[i]);
+        if (books[i].id == id){//aqui decimos lo mismo que en la función anterior osea que si el id que introduce el cliente coincide para ahi y coge el libro que coincide y muestra toda su estructura
+            books[i].availablequantity += quantity;//y aqui nos encargamos de utilizar lo escaneado en el segundo printf y añadir el numero escaneado a la cantidad disponible que ya tenia el libro elegido
+            printf("Stock restored:\n");
+            print_book(&books[i]);//y aqui solamente imprimimos el resultado del libro 
             return;
         }
     }
 
-    // Si no se encuentra el libro, mostrar un mensaje de error
-    printf("Error: No se encontró ningún libro con ID %d.\n", id);
+    // Si no se encuentra el libro, mostramos un mensaje de error
+    printf("Error: Didn't find any book with that ID: %d.\n", id);
 }
-    void mostrar_categoria(Book *books){
-        int categoria;
-        printf("mostrar categoria de todos los libros:");
-        scanf("%d",&categoria);
-        for (int i = 0; i < 40; ++i){
+    //void show_books_by_category(Book *books,) {
+    //for (int i = 0; i < 40; ++i) {
+        //if (books[i].genre == category) {
+             //print_book(&books[i]);
+        //}
+    //}
+//}
+        //void show_books_by_category hecho por switch
+       /* void show_books_by_category(Book *books) {
+    int genre;
+    printf("Choose the category you want to see:\n");
+    printf("1 - Fiction\n2 - Non-Fiction\n3 - Poetry\n4 - Theater\n5 - Essay\n");
+    printf("Please enter the number of the category you want to see: ");
+    scanf("%d", &genre);
 
+    // Validación
+    if (genre < 1 || genre > 5) {
+        printf("Error: Invalid genre number %d.\n", genre);
+        return;
+    }
 
-        if (categoria == books[i].genre){
-            imprimirlibro(&books[i]);
+    printf("Books in the selected category:\n");
+}
+
+    //mostrar por categoria hecho en switch he elegido hacerlo por if ya que es mas fácil, directo y corto de realizar pero ofrece mas facilidad de cambio y mejor estructuración en casos con varias opciones como este un switch
+    //switch (genre) {
+        //case 1: // Fiction
+            //for (int i = 0; i < 40; ++i) {
+                //if (books[i].genre == FICTION) {
+                    //print_book(&books[i]);
+                //}
+            //}
+            //break;
+
+        //case 2: // Non-Fiction
+            //for (int i = 0; i < 40; ++i) {
+                //if (books[i].genre == NON_FICTION) {
+                    //print_book(&books[i]);
+                //}
+            //}
+            //break;
+
+        //case 3: // Poetry
+            //for (int i = 0; i < 40; ++i) {
+                //if (books[i].genre == POETRY) {
+                    //print_book(&books[i]);
+                //}
+            //}
+            //break;
+
+        //case 4: // Theater
+            //for (int i = 0; i < 40; ++i) {
+                //if (books[i].genre == THEATER) {
+                    //print_book(&books[i]);
+                //}
+            //}
+            //break;
+
+        //case 5: // Essay
+            //for (int i = 0; i < 40; ++i) {
+                //if (books[i].genre == ESSAY) {
+                    //print_book(&books[i]);
+                //}
+            //}
+            //break;
+
+        //default:
+            //printf("Error: Something went wrong.\n");
+            //break;
+    //}
+    */
+        void show_books_by_category(Book *books){
+            int genre;//declaramos el entero 
+            printf("Choose the category u want to see:\n 1-Fiction\n 2-NON Fiction\n 3-Poetry\n 4-Theather\n 5-Essay\n");
+            printf("Please put the number of the category u want to see:");
+            scanf("%d", &genre);
+            genre--;//esto lo utilizamos para que Fiction no ocupe 0 en la dirección de memoria sino un 1 ya que con esto lo que hacemos es restar una posición a género y asi lo tenemos nivelado como le ofrecemos al cliente 
+
+            // Validación 
+            if (genre < 0 || genre > 4) {//le damos el intervalo de valores que puede introducir el cliente para que se ejecute la función o no 
+                printf("Error: Invalid genre number %d.\n", genre + 1);
+                return;
+            }
+
+            printf("Books in the selected category:\n");
+
+            for (int i = 0; i < 40; ++i) {
+                if (books[i].genre == genre) {//aqui simplemente es repetir lo mismo que repetimos en la función de mostrar segun el id, simplemente ordenamos que se reccorra el array y almacene los coincidentes con el numero introducido y que luego los imprima
+                    print_book(&books[i]);
+                }
+            }
         }
+        
+        /*void show_books_by_author(Book *books);
+        int author;
+        printf("Please write the name of the author you want to search for:\n")
+        scanf("%c",&author)
+        for (int i = 0; i < 40; ++i) {
+                if (books[i].genre == genre) {
+                    print_book(&books[i]);
+                }
+            }
+        {
     }
-    }
+    */
+
 int main(){
      Book books[40] = {
         {1, "To Kill a Mockingbird", "Harper Lee", 15.99, FICTION, 10},
@@ -132,8 +238,9 @@ int main(){
         {39, "The Republic", "Plato", 16.00, ESSAY, 6},
         {40, "Thus Spoke Zarathustra", "Friedrich Nietzsche", 14.99, ESSAY, 10}
     }; 
-    mostrar(books);
-    mostrarlibro(books);
-    aumentarStock(books); // Llamar a la función para que el cliente elija ID y cantidad
-    mostrar_categoria(books);
+    //Llamadas a la función dentro de el main para que se ejecuten
+    show(books);
+    show_book(books);
+    increaseStock(books); 
+    show_books_by_category(books);
 }
