@@ -34,6 +34,7 @@ void print_book(Book *book){
 }
 //en la siguiente función lo unico que queremos es que recorra todo nuestro array desde el primero hasta el 40 , los escanee y los imprima por pantalla con todos los atributos definidos en la estructura del libro
 void show(Book *books){
+    //ESTE FOR HAY QUE ARREGLARLO PARA QUE COMPARE SI TIENE 40 O MAS
 	for (int i = 0; i < 40; ++i){//aqui en este for lo que decimos es de que lugar a que lugar va y con el ++i lo que hacemos es que no se pare en el primero sino que siga avanzando escaneando hasta el 40 definido 
         print_book(&books[i]);
     }
@@ -95,6 +96,9 @@ void increaseStock(Book *books,int id, int quantity){
     printf("Error: Didn't find any book with that ID: %d.\n", id);
 }
     void Add_book(Book *books){
+        Book *books;
+        books= (Book*) realloc(41 *sizeof(Book));
+
         int id;
         char title[80];
         char author[60];
@@ -117,9 +121,11 @@ void increaseStock(Book *books,int id, int quantity){
         printf("Introduce the genre of ur new book:");
         scanf("%d",&genre);
 
-        printf("Introduce the availablequantity of ur new book:");
-        scanf("%d",&availablequantity);      
+        printf("Introduce the available quantity of ur new book:");
+        scanf("%d",&availablequantity); 
 
+    
+        show(books);
     }
 
 
@@ -215,6 +221,16 @@ void show_books_by_category(Book *books){
                 }
             }
         }
+
+void initialize_Book(Book *books,int id,char *title,char *author,float price,int availablequantity,Literarygenre genre){
+
+books->id=id;
+strcpy(books->title,title);
+strcpy(books->author,author);
+books->price=price;
+books->availablequantity=availablequantity;
+books->genre=genre;
+}
         
         /*void show_books_by_author(Book *books);
         int author;
@@ -229,7 +245,7 @@ void show_books_by_category(Book *books){
     }
     */
 
-int main(int argc, char**argv){
+/*int main(int argc, char**argv){
 
            Book books[40] = {
             {1, "To Kill a Mockingbird", "Harper Lee", 15.99, FICTION, 10},
@@ -273,6 +289,56 @@ int main(int argc, char**argv){
             {39, "The Republic", "Plato", 16.00, ESSAY, 6},
             {40, "Thus Spoke Zarathustra", "Friedrich Nietzsche", 14.99, ESSAY, 10}
         };
+        */
+    int main(int argc, char**argv){
+         Book *books;  
+         books= (Book*) malloc(40 *sizeof(Book));
+         if(books==NULL){
+            printf("Error in memory");
+            return 0;
+         }
+
+            initialize_Book(&books[0],1, "To Kill a Mockingbird", "Harper Lee", 15.99, FICTION, 10);
+            initialize_Book(&books[1],2, "1984", "George Orwell", 12.49, FICTION, 5);
+            initialize_Book(&books[2],3, "The Great Gatsby", "F. Scott Fitzgerald", 10.99, FICTION, 8);
+            initialize_Book(&books[3],4, "Moby Dick", "Herman Melville", 18.99, FICTION, 12);
+            initialize_Book(&books[4],5, "War and Peace", "Leo Tolstoy", 20.00, FICTION, 7);
+            initialize_Book(&books[5],6, "Pride and Prejudice", "Jane Austen", 14.99, FICTION, 9);
+            initialize_Book(&books[6],7, "The Catcher in the Rye", "J.D. Salinger", 10.00, FICTION, 6);
+            initialize_Book(&books[7],8, "The Odyssey", "Homer", 17.49, FICTION, 4);
+            initialize_Book(&books[8],9, "Ulysses", "James Joyce", 25.00, FICTION, 2);
+            initialize_Book(&books[9],10, "The Divine Comedy", "Dante Alighieri", 22.00, POETRY, 3);
+            initialize_Book(&books[10],11, "Leaves of Grass", "Walt Whitman", 13.00, POETRY, 11);
+            initialize_Book(&books[11],12, "The Iliad", "Homer", 18.50, FICTION, 7);
+            initialize_Book(&books[12],13, "A Brief History of Time", "Stephen Hawking", 15.00, NON_FICTION, 15);
+            initialize_Book(&books[13],14, "The Art of War", "Sun Tzu", 9.99, NON_FICTION, 20);
+            initialize_Book(&books[14],15, "Sapiens: A Brief History of Humankind", "Yuval Noah Harari", 16.49, NON_FICTION, 13);
+            initialize_Book(&books[15],16, "The Selfish Gene", "Richard Dawkins", 14.00, NON_FICTION, 6);
+            initialize_Book(&books[16],17, "The Road to Serfdom", "F.A. Hayek", 10.50, NON_FICTION, 5);
+            initialize_Book(&books[17],18, "The Wealth of Nations", "Adam Smith", 30.00, NON_FICTION, 8);
+            initialize_Book(&books[18],19, "On the Origin of Species", "Charles Darwin", 24.99, NON_FICTION, 4);
+            initialize_Book(&books[19],20, "The Prince", "Niccolò Machiavelli", 8.99, NON_FICTION, 14);
+            initialize_Book(&books[20],21, "Hamlet", "William Shakespeare", 11.50, THEATER, 6);
+            initialize_Book(&books[21],22, "Macbeth", "William Shakespeare", 9.50, THEATER, 8);
+            initialize_Book(&books[22],23, "Othello", "William Shakespeare", 10.99, THEATER, 7);
+            initialize_Book(&books[23],24, "A Doll's House", "Henrik Ibsen", 12.50, THEATER, 5);
+            initialize_Book(&books[24],25, "Waiting for Godot", "Samuel Beckett", 13.99, THEATER, 4);
+            initialize_Book(&books[25],26, "Death of a Salesman", "Arthur Miller", 14.99, THEATER, 10);
+            initialize_Book(&books[26],27, "The Glass Menagerie", "Tennessee Williams", 11.00, THEATER, 9);
+            initialize_Book(&books[27],28, "Long Day's Journey into Night", "Eugene O'Neill", 19.50, THEATER, 3);
+            initialize_Book(&books[28],29, "The Importance of Being Earnest", "Oscar Wilde", 8.50, THEATER, 15);
+            initialize_Book(&books[29],30, "The Waste Land", "T.S. Eliot", 6.99, POETRY, 10);
+            initialize_Book(&books[30],31, "Paradise Lost", "John Milton", 12.00, POETRY, 7);
+            initialize_Book(&books[31],32, "Beowulf", "Anonymous", 15.00, POETRY, 5);
+            initialize_Book(&books[32],33, "Essays", "Michel de Montaigne", 20.00, ESSAY, 4);
+            initialize_Book(&books[33],34, "Self-Reliance and Other Essays", "Ralph Waldo Emerson", 9.00, ESSAY, 9);
+            initialize_Book(&books[34],35, "Civil Disobedience and Other Essays", "Henry David Thoreau", 7.50, ESSAY, 11);
+            initialize_Book(&books[35],36, "Meditations", "Marcus Aurelius", 11.99, ESSAY, 8);
+            initialize_Book(&books[36],37, "The Federalist Papers", "Alexander Hamilton, James Madison, John Jay", 18.00, ESSAY, 5);
+            initialize_Book(&books[37],38, "The Communist Manifesto", "Karl Marx and Friedrich Engels", 5.99, ESSAY, 12);
+            initialize_Book(&books[38],39, "The Republic", "Plato", 16.00, ESSAY, 6);
+            initialize_Book(&books[39],40, "Thus Spoke Zarathustra", "Friedrich Nietzsche", 14.99, ESSAY, 10);
+        
     //Llamadas a la función dentro de el main para que se ejecuten
     //show(books);
     //show_book(books);
@@ -312,6 +378,8 @@ int main(int argc, char**argv){
             }
  //en el argv tenemos que poner el numero de la dirección donde se encuentra nuestro por asi decirlo nombre clave como puede ser "stock".
         }
+        //catalogo= (Book*)malloc(40*sizeof(book));
 
         return 0;
+        free(books);
 }    
