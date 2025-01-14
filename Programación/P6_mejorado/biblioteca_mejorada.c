@@ -35,7 +35,7 @@ void print_book(Book *book){
 //en la siguiente función lo unico que queremos es que recorra todo nuestro array desde el primero hasta el 40 , los escanee y los imprima por pantalla con todos los atributos definidos en la estructura del libro
 void show(Book *books){
     //ESTE FOR HAY QUE ARREGLARLO PARA QUE COMPARE SI TIENE 40 O MAS
-	for (int i = 0; i < 40; ++i){//aqui en este for lo que decimos es de que lugar a que lugar va y con el ++i lo que hacemos es que no se pare en el primero sino que siga avanzando escaneando hasta el 40 definido 
+	for (int i = 0; i < 41; ++i){//aqui en este for lo que decimos es de que lugar a que lugar va y con el ++i lo que hacemos es que no se pare en el primero sino que siga avanzando escaneando hasta el 40 definido 
         print_book(&books[i]);
     }
 }//cabe destacar que en esta función y de aqui en adelante el genero se nos va a imprimir como un número o entero y no como un un char o palabra
@@ -65,6 +65,20 @@ void show_book(Book *books){ //con esto lo que hacemos es apuntar a Book en cada
    }
 
 }
+void show_by_author(Book *books,char* author){//con esta función lo que queremos hacer es que al introducir un autor nos salga sus libros correspondientes
+  
+    for (int i = 0; i < 40; ++i)
+    {
+        if(strncmp (author, &books[i].author,strlen(author))==0);
+        printf("%d",&books[i].id);
+        printf("%s",books[i].author);
+        printf("%s",books[i].title);
+        printf("%.2f",&books[i].price);
+        printf("%d",&books[i].availablequantity);
+        print("%d",&books[i].genre);
+    }
+}
+
 
 void show_id_book(Book *books,int id){ //con esto lo que hacemos es apuntar a Book en cada función
     for (int i = 0; i < 40; ++i) {
@@ -96,8 +110,7 @@ void increaseStock(Book *books,int id, int quantity){
     printf("Error: Didn't find any book with that ID: %d.\n", id);
 }
     void Add_book(Book *books){
-        Book *books;
-        books= (Book*) realloc(41 *sizeof(Book));
+        books= (Book*) realloc(books,41 *sizeof(Book));
 
         int id;
         char title[80];
@@ -105,24 +118,26 @@ void increaseStock(Book *books,int id, int quantity){
         float price;
         int genre;
         int availablequantity;
-
+        //con &books.i lo que hacemos es que ese scanf despues de escanear lo introducido por el cliente, guarde esa información en el apartado books que es con el cual mostramos nuestro catalogo actualizado.
         printf("Please put an id higher than 40 to ur new book:");
-        scanf("%d",&id);
+        scanf("%d",&books[40].id);
 
-        printf("Please introduce the title of the book u want to add:");
-        scanf("%s",title);
+        printf("Please introduce the title of the book u want to add:"); //"%[^\n]": esto lo utilizamos para poder incluir espacios en nuestros textos como pueden ser los titulos o el autor
+        scanf("%[^\n]",books[40].title);
 
         printf("Please introduce the author of the book u want to add:");
-        scanf("%s",author);
+        scanf("%[^\n]",books[40].author);
 
         printf("Please put the price of ur new book:");
-        scanf("%f",&price);
+        scanf("%f",&books[40].price);
 
+        int gen;//creamos otra variable para guardar la variable género
         printf("Introduce the genre of ur new book:");
-        scanf("%d",&genre);
+        scanf("%d",&gen);
+        books[40].genre=gen;//aqui igualamos la variable creada y genre para que el programa detecte que es una variable utilizada para como asi decirlo mandarle la informacion recopilada por gen a genre
 
         printf("Introduce the available quantity of ur new book:");
-        scanf("%d",&availablequantity); 
+        scanf("%d",&books[40].availablequantity); 
 
     
         show(books);
@@ -365,6 +380,11 @@ books->genre=genre;
             if(strcmp(argv[1],"show")== 0){
                 int id = atoi(argv[2]);//con esto hacemos que la función pase a ser un entero
                 show_id_book(books, id);
+            else if(strcmp(argv[1],"author")== 0);
+            {
+                int author =atoi(argv[2]);
+                show_by_author(books,author);
+            }
             }
             else if (strcmp(argv[1],"category")== 0){
                 show_books_by_category(books);  
