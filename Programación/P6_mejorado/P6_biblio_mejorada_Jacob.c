@@ -86,12 +86,15 @@ void show_by_author(Book *books, char *author) {
     int found = 0;
      getchar();
     for (int i = 0; i < 40; ++i) {
+        for (int j = 0; j < 60; ++j){
         if (strncmp(books[i].author, author, strlen(author)) == 0) {
-            printf("%d,%s,%s,%.2f,%d,%d\n", books[i].id, books[i].author, books[i].title, books[i].price, books[i].availablequantity, books[i].genre);
-            found = 1;
+              print_book(&books[i]);
+              found=1
+        }
+
         }
     }
-    if (!found) {
+    if (found == 0) {
         printf("Autor no encontrado\n");
     }
 }
