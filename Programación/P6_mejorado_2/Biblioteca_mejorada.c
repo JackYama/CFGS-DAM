@@ -27,18 +27,11 @@ typedef struct{
 
 
 // esta función creada es la que utilizaremos como variable para imprimir los diferentes atributos definidos en nuestra estructura 
-void print_book(Book *book){
+void print_book(Book *book);
 
-    printf("%d,%s,%s,%.2f,%d,%d\n",book->id,book->title,book->author,book->price,book->availablequantity,book->genre);//aqui ponemos flecha ya que queremos acceder directamente  anuestra estructura y el dato y asi usar directamente el valor que tenemos en vez de coger una copia como pasaria al utilizar un .
-
-}
 //en la siguiente función lo unico que queremos es que recorra todo nuestro array desde el primero hasta el 40 , los escanee y los imprima por pantalla con todos los atributos definidos en la estructura del libro
-void show(Book *books, int numbooks){
-    //ESTE FOR HAY QUE ARREGLARLO PARA QUE COMPARE SI TIENE 40 O MAS
-	for (int i = 0; i < numbooks; ++i){//aqui en este for lo que decimos es de que lugar a que lugar va y con el ++i lo que hacemos es que no se pare en el primero sino que siga avanzando escaneando hasta el 40 definido 
-        print_book(&books[i]);
-    }
-}//cabe destacar que en esta función y de aqui en adelante el genero se nos va a imprimir como un número o entero y no como un un char o palabra
+void show(Book *books, int numbooks);
+//cabe destacar que en esta función y de aqui en adelante el genero se nos va a imprimir como un número o entero y no como un un char o palabra
 
 //void mostrarlibro(Book *books,int id, int cantidadDisponible){
     //	for (int i = 0; i < 40; ++i)
@@ -46,25 +39,7 @@ void show(Book *books, int numbooks){
 	 	//printf("%d,%s,%s,%.2f,%d,%d\n",books[i].id,books[i].titulo,books[i].autor,books[i].precio,books[i].cantidadDisponible,books[i].genre );
 	//}
 
-
-void show_book(Book *books){ //con esto lo que hacemos es apuntar a Book en cada función
-    int id;
-    int quantity; //declaramos enteros para nuestra función
-    printf("Enter the ID of the book u want to search of: ");
-    scanf("%d", &id); // Leer ID desde el usuario
-    for (int i = 0; i < 40; ++i) {
-        if (books[i].id == id) {//aqui le decimos al programa que si cuando recorre el array encuentra que en el apartado id de cada libro uno coincide con el introducido por el cliente pare y imprima toda la estructura del libro coincidente
-         print_book(&books[i]);
-         return;
-     }
-        else if (id< 1 || id > 40){//aqui decimos que en la función las direcciones que nos interesan son del 1 al 40 y que todo lo que esta fuera de la primera posicion a la 40 da error y no nos da nada
-         printf("Error: Didn't find any Book with that ID%d\n", id);
-     } 
-
-
- }
-
-}
+void show_book(Book *books);
 //void show_by_author(Book *books,char*author){//con esta función lo que queremos hacer es que al introducir un autor nos salga sus libros correspondientes
     //int found = 0;
     //for (int i = 0; i < 40; ++i){
@@ -82,94 +57,20 @@ void show_book(Book *books){ //con esto lo que hacemos es apuntar a Book en cada
     //if(!found){  
     //printf("Autor no encontrado");
      //}
-void show_by_author(Book *books, char *author) {
-    int found = 0;
-    getchar();
-    for (int i = 0; i < 40; ++i) {
-        for (int j = 0; j < 60; ++j){
-            if (strncmp(books[i].author, author, strlen(author)) == 0) {
-              print_book(&books[i]);
-              found=1;
-          }
 
-      }
-  }
-  if (found == 0) {
-    printf("Autor no encontrado\n");
-}
-}
+void show_by_author(Book *books, char *author);
 
 
 
 
-void show_id_book(Book *books,int id){ //con esto lo que hacemos es apuntar a Book en cada función
-    for (int i = 0; i < 40; ++i) {
-        if (books[i].id == id) {//aqui le decimos al programa que si cuando recorre el array encuentra que en el apartado id de cada libro uno coincide con el introducido por el cliente pare y imprima toda la estructura del libro coincidente
-         print_book(&books[i]);
-         return;
-     }
-        else if (id< 1 || id > 40){//aqui decimos que en la función las direcciones que nos interesan son del 1 al 40 y que todo lo que esta fuera de la primera posicion a la 40 da error y no nos da nada
-         printf("Error: Didn't find any Book with that ID%d\n", id);
-     } 
+void show_id_book(Book *books,int id); //con esto lo que hacemos es apuntar a Book en cada función
 
 
- }
+void increaseStock(Book *books,int id, int quantity);
 
-}
-
-void increaseStock(Book *books,int id, int quantity){
-
-    // Buscar el libro por ID y aumentar el stock
-    for (int i = 0; i < 40; ++i) {
-        if (books[i].id == id){//aqui decimos lo mismo que en la función anterior osea que si el id que introduce el cliente coincide para ahi y coge el libro que coincide y muestra toda su estructura
-            books[i].availablequantity += quantity;//y aqui nos encargamos de utilizar lo escaneado en el segundo printf y añadir el numero escaneado a la cantidad disponible que ya tenia el libro elegido
-            printf("Stock restored:\n");
-            print_book(&books[i]);//y aqui solamente imprimimos el resultado del libro 
-            return;
-        }
-    }
-    // Si no se encuentra el libro, mostramos un mensaje de error
-    printf("Error: Didn't find any book with that ID: %d.\n", id);
-}
     //void Add_book(Book *books, int numbooks){ La dirección de memoria la estoy recibiendo por valor. Los cambios que haga en la dirección, no se ven en el main. OJO: los cambios que haga en el catálogo sí se ven porque el catálogo lo estoy pasando por referencia.
     //void Add_book(Book ** books, int numbooks){  Así, estamos pasando la dirección de memoria por referencia. Ahora, podemos modificar el contenido (es decir, *books) y el main se entera. Ahora bien, *books es, a su vez, una dirección de memoria. Para acceder a un libro concreto, tendré que hacer **books.
-void Add_book(Book ** dir_books, int numbooks){ // Al final de la función, podemos devolver la dirección de memoria que ha dado el realloc. Así, le estamos dando al main la dirección nueva.
-
-        Book * books = *dir_books;
-
-        *dir_books = (Book*) realloc(*dir_books,41 *sizeof(Book));
-
-        int id;
-        char title[80];
-        char author[60];
-        float price;
-        int genre;
-        int availablequantity;
-
-        //con &books.i lo que hacemos es que ese scanf despues de escanear lo introducido por el cliente, guarde esa información en el apartado books que es con el cual mostramos nuestro catalogo actualizado.
-        printf("Please put an id higher than 40 to ur new book:");
-        scanf("%d",&(*dir_books)[40].id);
-
-        printf("Please introduce the title of the book u want to add:"); //"%[^\n]": esto lo utilizamos para poder incluir espacios en nuestros textos como pueden ser los titulos o el autor
-        scanf(" %[^\n]",(*dir_books)[40].title);
-
-        printf("Please introduce the author of the book u want to add:");
-        scanf(" %[^\n]",(*dir_books)[40].author);
-
-        printf("Please put the price of ur new book:");
-        scanf("%f",&(*dir_books)[40].price);
-
-        int gen;//creamos otra variable para guardar la variable género
-        printf("Introduce the genre of ur new book:");
-        scanf("%d",&gen);
-        (*dir_books)[40].genre=gen;//aqui igualamos la variable creada y genre para que el programa detecte que es una variable utilizada para como asi decirlo mandarle la informacion recopilada por gen a genre
-
-        printf("Introduce the available quantity of ur new book:");
-        scanf("%d",&(*dir_books)[40].availablequantity); 
-
-        numbooks++;
-        show((*dir_books), numbooks);
-}
+    void Add_book(Book ** dir_books, int numbooks);// Al final de la función, podemos devolver la dirección de memoria que ha dado el realloc. Así, le estamos dando al main la dirección nueva.
 
 
     //void show_books_by_category(Book *books,) {
@@ -243,37 +144,9 @@ void Add_book(Book ** dir_books, int numbooks){ // Al final de la función, pode
             //break;
     //}
     */
-    void show_books_by_category(Book *books){
-            int genre;//declaramos el entero 
-            printf("Choose the category u want to see:\n 1-Fiction\n 2-NON Fiction\n 3-Poetry\n 4-Theather\n 5-Essay\n");
-            printf("Please put the number of the category u want to see:");
-            scanf("%d", &genre);
-            genre--;//esto lo utilizamos para que Fiction no ocupe 0 en la dirección de memoria sino un 1 ya que con esto lo que hacemos es restar una posición a género y asi lo tenemos nivelado como le ofrecemos al cliente 
-
-            // Validación 
-            if (genre < 0 || genre > 4) {//le damos el intervalo de valores que puede introducir el cliente para que se ejecute la función o no 
-                printf("Error: Invalid genre number %d.\n", genre + 1);
-                return;
-            }
-
-            printf("Books in the selected category:\n");
-
-            for (int i = 0; i < 40; ++i) {
-                if (books[i].genre == genre) {//aqui simplemente es repetir lo mismo que repetimos en la función de mostrar segun el id, simplemente ordenamos que se reccorra el array y almacene los coincidentes con el numero introducido y que luego los imprima
-                    print_book(&books[i]);
-                }
-            }
-        }
-
-        void initialize_Book(Book *books,int id,char *title,char *author,float price,int availablequantity,Literarygenre genre){
-
-            books->id=id;
-            strcpy(books->title,title);
-            strcpy(books->author,author);
-            books->price=price;
-            books->availablequantity=availablequantity;
-            books->genre=genre;
-        }
+    void show_books_by_category(Book *books);
+   
+       void initialize_Book(Book *books,int id,char *title,char *author,float price,int availablequantity,Literarygenre genre);
         
         /*void show_books_by_author(Book *books);
         int author;
@@ -474,3 +347,146 @@ void Add_book(Book ** dir_books, int numbooks){ // Al final de la función, pode
     return 0;
 }
 
+
+
+void print_book(Book *book){
+
+    printf("%d,%s,%s,%.2f,%d,%d\n",book->id,book->title,book->author,book->price,book->availablequantity,book->genre);//aqui ponemos flecha ya que queremos acceder directamente  anuestra estructura y el dato y asi usar directamente el valor que tenemos en vez de coger una copia como pasaria al utilizar un .
+
+}
+void show(Book *books, int numbooks){
+    //ESTE FOR HAY QUE ARREGLARLO PARA QUE COMPARE SI TIENE 40 O MAS
+    for (int i = 0; i < numbooks; ++i){//aqui en este for lo que decimos es de que lugar a que lugar va y con el ++i lo que hacemos es que no se pare en el primero sino que siga avanzando escaneando hasta el 40 definido 
+        print_book(&books[i]);
+    }
+}
+void show_book(Book *books){ //con esto lo que hacemos es apuntar a Book en cada función
+    int id;
+    int quantity; //declaramos enteros para nuestra función
+    printf("Enter the ID of the book u want to search of: ");
+    scanf("%d", &id); // Leer ID desde el usuario
+    for (int i = 0; i < 40; ++i) {
+        if (books[i].id == id) {//aqui le decimos al programa que si cuando recorre el array encuentra que en el apartado id de cada libro uno coincide con el introducido por el cliente pare y imprima toda la estructura del libro coincidente
+         print_book(&books[i]);
+         return;
+     }
+        else if (id< 1 || id > 40){//aqui decimos que en la función las direcciones que nos interesan son del 1 al 40 y que todo lo que esta fuera de la primera posicion a la 40 da error y no nos da nada
+         printf("Error: Didn't find any Book with that ID%d\n", id);
+     } 
+
+
+ }
+
+}
+void show_by_author(Book *books, char *author) {
+    int found = 0;
+    getchar();
+    for (int i = 0; i < 40; ++i) {
+        for (int j = 0; j < 60; ++j){
+            if (strncmp(books[i].author, author, strlen(author)) == 0) {
+              print_book(&books[i]);
+              found=1;
+          }
+
+      }
+  }
+  if (found == 0) {
+    printf("Autor no encontrado\n");
+}
+}
+void show_id_book(Book *books,int id){ //con esto lo que hacemos es apuntar a Book en cada función
+    for (int i = 0; i < 40; ++i) {
+        if (books[i].id == id) {//aqui le decimos al programa que si cuando recorre el array encuentra que en el apartado id de cada libro uno coincide con el introducido por el cliente pare y imprima toda la estructura del libro coincidente
+         print_book(&books[i]);
+         return;
+     }
+        else if (id< 1 || id > 40){//aqui decimos que en la función las direcciones que nos interesan son del 1 al 40 y que todo lo que esta fuera de la primera posicion a la 40 da error y no nos da nada
+         printf("Error: Didn't find any Book with that ID%d\n", id);
+     } 
+
+
+ }
+
+}
+void increaseStock(Book *books,int id, int quantity){
+
+    // Buscar el libro por ID y aumentar el stock
+    for (int i = 0; i < 40; ++i) {
+        if (books[i].id == id){//aqui decimos lo mismo que en la función anterior osea que si el id que introduce el cliente coincide para ahi y coge el libro que coincide y muestra toda su estructura
+            books[i].availablequantity += quantity;//y aqui nos encargamos de utilizar lo escaneado en el segundo printf y añadir el numero escaneado a la cantidad disponible que ya tenia el libro elegido
+            printf("Stock restored:\n");
+            print_book(&books[i]);//y aqui solamente imprimimos el resultado del libro 
+            return;
+        }
+    }
+    // Si no se encuentra el libro, mostramos un mensaje de error
+    printf("Error: Didn't find any book with that ID: %d.\n", id);
+}
+void Add_book(Book ** dir_books, int numbooks){ // Al final de la función, podemos devolver la dirección de memoria que ha dado el realloc. Así, le estamos dando al main la dirección nueva.
+
+        Book * books = *dir_books;
+
+        *dir_books = (Book*) realloc(*dir_books,41 *sizeof(Book));
+
+        int id;
+        char title[80];
+        char author[60];
+        float price;
+        int genre;
+        int availablequantity;
+
+        //con &books.i lo que hacemos es que ese scanf despues de escanear lo introducido por el cliente, guarde esa información en el apartado books que es con el cual mostramos nuestro catalogo actualizado.
+        printf("Please put an id higher than 40 to ur new book:");
+        scanf("%d",&(*dir_books)[40].id);
+
+        printf("Please introduce the title of the book u want to add:"); //"%[^\n]": esto lo utilizamos para poder incluir espacios en nuestros textos como pueden ser los titulos o el autor
+        scanf(" %[^\n]",(*dir_books)[40].title);
+
+        printf("Please introduce the author of the book u want to add:");
+        scanf(" %[^\n]",(*dir_books)[40].author);
+
+        printf("Please put the price of ur new book:");
+        scanf("%f",&(*dir_books)[40].price);
+
+        int gen;//creamos otra variable para guardar la variable género
+        printf("Introduce the genre of ur new book:");
+        scanf("%d",&gen);
+        (*dir_books)[40].genre=gen;//aqui igualamos la variable creada y genre para que el programa detecte que es una variable utilizada para como asi decirlo mandarle la informacion recopilada por gen a genre
+
+        printf("Introduce the available quantity of ur new book:");
+        scanf("%d",&(*dir_books)[40].availablequantity); 
+
+        numbooks++;
+        show((*dir_books), numbooks);
+}
+ void show_books_by_category(Book *books){
+            int genre;//declaramos el entero 
+            printf("Choose the category u want to see:\n 1-Fiction\n 2-NON Fiction\n 3-Poetry\n 4-Theather\n 5-Essay\n");
+            printf("Please put the number of the category u want to see:");
+            scanf("%d", &genre);
+            genre--;//esto lo utilizamos para que Fiction no ocupe 0 en la dirección de memoria sino un 1 ya que con esto lo que hacemos es restar una posición a género y asi lo tenemos nivelado como le ofrecemos al cliente 
+
+            // Validación 
+            if (genre < 0 || genre > 4) {//le damos el intervalo de valores que puede introducir el cliente para que se ejecute la función o no 
+                printf("Error: Invalid genre number %d.\n", genre + 1);
+                return;
+            }
+
+            printf("Books in the selected category:\n");
+
+            for (int i = 0; i < 40; ++i) {
+                if (books[i].genre == genre) {//aqui simplemente es repetir lo mismo que repetimos en la función de mostrar segun el id, simplemente ordenamos que se reccorra el array y almacene los coincidentes con el numero introducido y que luego los imprima
+                    print_book(&books[i]);
+                }
+            }
+        }
+void initialize_Book(Book *books,int id,char *title,char *author,float price,int availablequantity,Literarygenre genre){
+
+            books->id=id;
+            strcpy(books->title,title);
+            strcpy(books->author,author);
+            books->price=price;
+            books->availablequantity=availablequantity;
+            books->genre=genre;
+        }
+        
