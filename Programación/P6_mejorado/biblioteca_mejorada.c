@@ -65,19 +65,38 @@ void show_book(Book *books){ //con esto lo que hacemos es apuntar a Book en cada
    }
 
 }
-void show_by_author(Book *books,char* author){//con esta función lo que queremos hacer es que al introducir un autor nos salga sus libros correspondientes
-  
-    for (int i = 0; i < 40; ++i)
-    {
-        if(strncmp (author, &books[i].author,strlen(author))==0);
-        printf("%d",&books[i].id);
-        printf("%s",books[i].author);
-        printf("%s",books[i].title);
-        printf("%.2f",&books[i].price);
-        printf("%d",&books[i].availablequantity);
-        print("%d",&books[i].genre);
+//void show_by_author(Book *books,char*author){//con esta función lo que queremos hacer es que al introducir un autor nos salga sus libros correspondientes
+    //int found = 0;
+    //for (int i = 0; i < 40; ++i){
+        //if(strncmp (int buscado, &books[i].author,strlen(author))==0);ç
+        //if (strncmp(books[i].author, author, strlen(author)) == 0){ 
+        //printf("%d",books[i].id);
+        //printf("%s",books[i].author);
+        //printf("%s",books[i].title);
+        //printf("%.2f",books[i].price);
+        //printf("%d",books[i].availablequantity);
+        //printf("%d",books[i].genre);
+        //found = 1;//si el libro ha sido encontrado el found=pasa a 1
+    //}
+ //}
+    //if(!found){  
+    //printf("Autor no encontrado");
+     //}
+void show_by_author(Book *books, char *author) {
+    int found = 0;
+     getchar();
+    for (int i = 0; i < 40; ++i) {
+        if (strncmp(books[i].author, author, strlen(author)) == 0) {
+            printf("%d,%s,%s,%.2f,%d,%d\n", books[i].id, books[i].author, books[i].title, books[i].price, books[i].availablequantity, books[i].genre);
+            found = 1;
+        }
+    }
+    if (!found) {
+        printf("Autor no encontrado\n");
     }
 }
+
+
 
 
 void show_id_book(Book *books,int id){ //con esto lo que hacemos es apuntar a Book en cada función
@@ -305,13 +324,21 @@ books->genre=genre;
             {40, "Thus Spoke Zarathustra", "Friedrich Nietzsche", 14.99, ESSAY, 10}
         };
         */
-    int main(int argc, char**argv){
+    /*int main(int argc, char**argv){
          Book *books;  
          books= (Book*) malloc(40 *sizeof(Book));
          if(books==NULL){
             printf("Error in memory");
             return 0;
          }
+*/
+int main(int argc, char **argv) {
+    Book *books;  
+    books = (Book*) malloc(40 * sizeof(Book));
+    if (books == NULL) {
+        printf("Error en la memoria\n");
+        return 0;
+    }
 
             initialize_Book(&books[0],1, "To Kill a Mockingbird", "Harper Lee", 15.99, FICTION, 10);
             initialize_Book(&books[1],2, "1984", "George Orwell", 12.49, FICTION, 5);
@@ -360,7 +387,7 @@ books->genre=genre;
     //increaseStock(books); 
     //show_books_by_category(books);
 
-        printf("Lista de arguemtos (hay %d argumentos):\n",argc);
+        /*printf("Lista de arguemtos (hay %d argumentos):\n",argc);
         for(int i = 0; i<argc; i++){
             printf("\t Argumento %d: %s\n",i,argv[i]);
         }
@@ -380,12 +407,11 @@ books->genre=genre;
             if(strcmp(argv[1],"show")== 0){
                 int id = atoi(argv[2]);//con esto hacemos que la función pase a ser un entero
                 show_id_book(books, id);
-            else if(strcmp(argv[1],"author")== 0);
-            {
-                int author =atoi(argv[2]);
-                show_by_author(books,author);
+             }else if(strcmp(argv[1],"author")== 0){
+                int author = atoi(argv[2]);
+                show_by_author(books, argv[2]);
             }
-            }
+        }
             else if (strcmp(argv[1],"category")== 0){
                 show_books_by_category(books);  
             }
@@ -400,6 +426,40 @@ books->genre=genre;
         }
         //catalogo= (Book*)malloc(40*sizeof(book));
 
-        return 0;
+        return ;
         free(books);
-}    
+}    */
+
+    // Llamada a las funciones según los argumentos proporcionados
+    printf("Lista de argumentos (hay %d argumentos):\n", argc);
+    for (int i = 0; i < argc; i++) {
+        printf("\tArgumento %d: %s\n", i, argv[i]);
+    }
+
+    if (argc == 1) {
+        // Caso inicial
+    } else if (argc == 2) {
+        if (strcmp(argv[1], "show") == 0) {
+            show(books);
+        } else if (strcmp(argv[1], "Add") == 0) {
+            Add_book(books);
+        }
+    } else if (argc == 3) {
+        if (strcmp(argv[1], "show") == 0) {
+            int id = atoi(argv[2]);
+            show_id_book(books, id);
+        } else if (strcmp(argv[1], "author") == 0) {
+            show_by_author(books, argv[2]);
+        }
+    } else if (argc == 4) {
+        if (strcmp(argv[1], "stock") == 0) {
+            int id = atoi(argv[2]);
+            int quantity = atoi(argv[3]);
+            increaseStock(books, id, quantity);
+        }
+    }
+
+    free(books); // No olvides liberar la memoria al final
+    return 0;
+}
+
