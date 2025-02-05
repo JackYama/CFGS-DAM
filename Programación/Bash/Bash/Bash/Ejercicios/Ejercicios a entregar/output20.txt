@@ -1,0 +1,61 @@
+.:
+total 140
+drwxr-xr-x 2 cfgs cfgs 4096 Jan 30 15:44 .hidden_dir
+-rw-r--r-- 1 cfgs cfgs 1025 Jan 30 15:44 file1.txt
+-rw-r--r-- 1 cfgs cfgs   73 Jan 30 15:44 file1.txt:Zone.Identifier
+-rw-r--r-- 1 cfgs cfgs  660 Jan 30 15:44 file2.csv
+-rw-r--r-- 1 cfgs cfgs   73 Jan 30 15:44 file2.csv:Zone.Identifier
+-rw-r--r-- 1 cfgs cfgs   80 Jan 30 15:44 file3.txt
+-rw-r--r-- 1 cfgs cfgs   73 Jan 30 15:44 file3.txt:Zone.Identifier
+-rw-r--r-- 1 cfgs cfgs  276 Jan 30 15:44 file4.txt
+-rw-r--r-- 1 cfgs cfgs   73 Jan 30 15:44 file4.txt:Zone.Identifier
+-rw-r--r-- 1 cfgs cfgs   57 Jan 30 15:44 file5.txt
+-rw-r--r-- 1 cfgs cfgs   73 Jan 30 15:44 file5.txt:Zone.Identifier
+-rw-r--r-- 1 cfgs cfgs 2091 Jan 30 15:44 file6_large.txt
+-rw-r--r-- 1 cfgs cfgs   73 Jan 30 15:44 file6_large.txt:Zone.Identifier
+-rw-r--r-- 1 cfgs cfgs  253 Jan 30 15:44 file7_duplicates.txt
+-rw-r--r-- 1 cfgs cfgs   73 Jan 30 15:44 file7_duplicates.txt:Zone.Identifier
+-rw-r--r-- 1 cfgs cfgs  992 Jan 30 16:18 out6.1.txt
+-rw-r--r-- 1 cfgs cfgs 1099 Jan 30 16:18 out6.2.txt
+-rw-r--r-- 1 cfgs cfgs  891 Jan 30 16:16 output1.txt
+-rw-r--r-- 1 cfgs cfgs    2 Jan 30 16:18 output10.txt
+-rw-r--r-- 1 cfgs cfgs    3 Jan 30 16:19 output11.txt
+-rw-r--r-- 1 cfgs cfgs   46 Jan 30 16:19 output12.txt
+-rw-r--r-- 1 cfgs cfgs  992 Jan 30 16:19 output13.txt
+-rw-r--r-- 1 cfgs cfgs 1026 Jan 30 16:19 output14.txt
+-rw-r--r-- 1 cfgs cfgs  660 Jan 30 16:19 output15.csv
+-rw-r--r-- 1 cfgs cfgs 1025 Jan 30 16:19 output16.txt
+-rw-r--r-- 1 cfgs cfgs   41 Jan 30 16:19 output17.txt
+-rw-r--r-- 1 cfgs cfgs    0 Jan 30 16:19 output18.txt
+-rw-r--r-- 1 cfgs cfgs  549 Jan 30 16:19 output19.txt
+-rw-r--r-- 1 cfgs cfgs 1020 Jan 30 16:16 output2.txt
+-rw-r--r-- 1 cfgs cfgs    0 Jan 30 16:19 output20.txt
+-rw-r--r-- 1 cfgs cfgs    0 Jan 30 16:16 output3.txt
+-rw-r--r-- 1 cfgs cfgs    2 Jan 30 16:14 output4.txt
+-rw-r--r-- 1 cfgs cfgs 1026 Jan 30 16:16 output5.txt
+-rw-r--r-- 1 cfgs cfgs  264 Jan 30 16:18 output7.txt
+-rw-r--r-- 1 cfgs cfgs  660 Jan 30 16:18 output8.csv
+-rw-r--r-- 1 cfgs cfgs   85 Jan 30 16:18 output9.txt
+drwxr-xr-x 2 cfgs cfgs 4096 Jan 30 15:44 subdir1
+drwxr-xr-x 3 cfgs cfgs 4096 Jan 30 15:44 subdir2
+
+./.hidden_dir:
+total 8
+-rw-r--r-- 1 cfgs cfgs 330 Jan 30 15:44 hidden_file.txt
+-rw-r--r-- 1 cfgs cfgs  73 Jan 30 15:44 hidden_file.txt:Zone.Identifier
+
+./subdir1:
+total 8
+-rw-r--r-- 1 cfgs cfgs 620 Jan 30 15:44 file_in_subdir1.txt
+-rw-r--r-- 1 cfgs cfgs  73 Jan 30 15:44 file_in_subdir1.txt:Zone.Identifier
+
+./subdir2:
+total 12
+drwxr-xr-x 2 cfgs cfgs 4096 Jan 30 15:44 .hidden
+-rw-r--r-- 1 cfgs cfgs  620 Jan 30 15:44 file_in_subdir2.txt
+-rw-r--r-- 1 cfgs cfgs   73 Jan 30 15:44 file_in_subdir2.txt:Zone.Identifier
+
+./subdir2/.hidden:
+total 8
+-rw-r--r-- 1 cfgs cfgs 550 Jan 30 15:44 hidden_file_subdir2.txt
+-rw-r--r-- 1 cfgs cfgs  73 Jan 30 15:44 hidden_file_subdir2.txt:Zone.Identifier
