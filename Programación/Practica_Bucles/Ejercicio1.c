@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+//Imprimir los numeros del 1 al 10
 int main(){
 	int i;
 

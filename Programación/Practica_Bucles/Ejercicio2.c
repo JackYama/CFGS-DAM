@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+//imprimir los primeros 10 numeros pares
 int main() {
     int i;
 

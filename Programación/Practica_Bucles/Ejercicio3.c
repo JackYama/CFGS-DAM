@@ -1,8 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+//imprimir los numeros del 10 al 1
 int main(){
-	int n;
-	for(i=1;i<10;i++)
+
+        for(int i=10;i>=0;i--){
+                printf("%d\n",i);
+        }
+        return 0;
+
 
 }
