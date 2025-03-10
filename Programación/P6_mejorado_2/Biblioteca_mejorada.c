@@ -144,7 +144,7 @@ void increaseStock(Book *books,int id, int quantity);
             //break;
     //}
     */
-    void show_books_by_category(Book *books);
+    void show_books_by_category(Book *books,int genre);
    
        void initialize_Book(Book *books,int id,char *title,char *author,float price,int availablequantity,Literarygenre genre);
         
@@ -328,6 +328,7 @@ void increaseStock(Book *books,int id, int quantity);
                 } else if (strcmp(argv[1], "Add") == 0) {
                     Add_book(&books, numbooks);
                 }
+                   
             } else if (argc == 3) {
                 if (strcmp(argv[1], "show") == 0) {
                     int id = atoi(argv[2]);
@@ -335,6 +336,11 @@ void increaseStock(Book *books,int id, int quantity);
                 } else if (strcmp(argv[1], "author") == 0) {
                     show_by_author(books, argv[2]);
                 }
+                   else if(strcmp(argv[1], "category") == 0){
+                    int genre = atoi(argv[2]);
+                    show_books_by_category(books,genre);
+                }   
+         
             } else if (argc == 4) {
                 if (strcmp(argv[1], "stock") == 0) {
                     int id = atoi(argv[2]);
@@ -459,12 +465,10 @@ void Add_book(Book ** dir_books, int numbooks){ // Al final de la función, pode
         numbooks++;
         show((*dir_books), numbooks);
 }
- void show_books_by_category(Book *books){
-            int genre;//declaramos el entero 
-            printf("Choose the category u want to see:\n 1-Fiction\n 2-NON Fiction\n 3-Poetry\n 4-Theather\n 5-Essay\n");
-            printf("Please put the number of the category u want to see:");
-            scanf("%d", &genre);
-            genre--;//esto lo utilizamos para que Fiction no ocupe 0 en la dirección de memoria sino un 1 ya que con esto lo que hacemos es restar una posición a género y asi lo tenemos nivelado como le ofrecemos al cliente 
+ void show_books_by_category(Book *books,int genre){
+            //int genre;//declaramos el entero 
+            
+           genre--;//esto lo utilizamos para que Fiction no ocupe 0 en la dirección de memoria sino un 1 ya que con esto lo que hacemos es restar una posición a género y asi lo tenemos nivelado como le ofrecemos al cliente 
 
             // Validación 
             if (genre < 0 || genre > 4) {//le damos el intervalo de valores que puede introducir el cliente para que se ejecute la función o no 
